@@ -1,10 +1,11 @@
 <template>
-    <div class="w-full h-[60vh] rounded-sm" ref="mapElement">
-
+    <div class="w-full h-[65vh] rounded-sm" ref="mapElement">
     </div>
+    <MapButtons />
 </template>
   
   <script setup lang="ts">
+  import MapButtons from '@/components/mapButtons.vue';
   import { onMounted, ref } from 'vue'
   import L from 'leaflet'
   
