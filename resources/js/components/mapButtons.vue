@@ -1,19 +1,14 @@
 <template>
     <div class="flex flex-row justify-center gap-5">
-        <button title="Iniciar" class="w-16 h-16 rounded-xl flex justify-center items-center bg-orange-500">
-            <PlayIcon class="w-9 h-9 text-white-600" />
+        <button title="Iniciar" class="flex h-16 w-16 items-center justify-center rounded-xl bg-orange-500">
+            <PlayIcon class="text-white-600 h-9 w-9" />
         </button>
-        <button title="Pausar" class="w-16 h-16 rounded-xl flex justify-center items-center bg-orange-500">
-            <PauseIcon class="w-9 h-9 text-white-600" />
-        </button>
-        <button title="Encerrar" class="w-16 h-16 rounded-xl flex justify-center items-center bg-orange-500">
-            <PowerIcon class="w-9 h-9 text-white-600" />
+        <button title="Encerrar" class="flex h-16 w-16 items-center justify-center rounded-xl bg-orange-500">
+            <PowerIcon class="text-white-600 h-9 w-9" />
         </button>
     </div>
 </template>
 
-<script setup>
-    import { PlayIcon } from '@heroicons/vue/24/solid'
-    import { PauseIcon } from '@heroicons/vue/24/solid'
-    import { PowerIcon } from '@heroicons/vue/24/solid'
+<script setup lang="ts">
+import { PlayIcon, PowerIcon } from '@heroicons/vue/24/solid';
 </script>
