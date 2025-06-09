@@ -12,7 +12,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        return Activity::load('positions')->all();
     }
 
     /**
@@ -28,7 +28,9 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $activity = Activity::create();
+
+        return redirect()->route('Home', ['activity_id' => $activity->id]);
     }
 
     /**
