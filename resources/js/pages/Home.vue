@@ -1,32 +1,30 @@
 <template>
     <div class="flex min-h-screen flex-col gap-5 p-5">
-        <div class="flex items-center justify-center gap-4">
-            <Button @click="startTracking" size="icon"><Play /></Button>
-            <Button size="icon"><Pause /></Button>
-            <Button @click="stopTracking" size="icon"><Square /></Button>
-        </div>
-
         <Map />
-        <!-- <Header /> -->
-        <!-- <Footer class="fixed bottom-0 left-0 mt-auto w-full" /> -->
+
+        <div class="flex items-center justify-center gap-4">
+            <Button v-if="!watchId" @click="startTracking" size="icon"><Play /></Button>
+            <Button v-else size="icon"><Pause /></Button>
+            <Button v-if="watchId" @click="stopTracking" size="icon"><Square /></Button>
+        </div>
+        <Toaster rich-colors />
     </div>
 </template>
 
 <script setup lang="ts">
 import Map from '@/components/map.vue';
 import { Button } from '@/components/ui/button';
+import { Position } from '@/types/Position';
 import { router } from '@inertiajs/vue3';
+import axios from 'axios';
 import { Pause, Play, Square } from 'lucide-vue-next';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
+import { toast, Toaster } from 'vue-sonner';
+import 'vue-sonner/style.css';
 
-const { activity_id } = defineProps<{
-    activity_id?: object;
-}>();
-
-const loading = ref(false);
-const error = ref('');
-const address = ref('');
 const watchId = ref<number>();
+const activityId = ref('');
+const positions = ref<Position[]>([]);
 
 const startTracking = async () => {
     if (!navigator.geolocation) {
@@ -34,9 +32,17 @@ const startTracking = async () => {
         return;
     }
 
-    await router.post(route('activity.store'));
+    toast('Sessão iniciada');
 
-    console.log(activity_id);
+    const api = axios.create({
+        baseURL: 'http://127.0.0.1:8000',
+    });
+
+    const response = await api.post('/activity');
+
+    console.log(response.data.id);
+
+    activityId.value = response.data.id;
 
     watchId.value = navigator.geolocation.watchPosition(
         (pos) => {
@@ -47,8 +53,8 @@ const startTracking = async () => {
                 longitude,
                 timestamp,
             });
-            //   coordenadas.push({ latitude, longitude, timestamp });
-            //   document.getElementById("log").textContent = JSON.stringify(coordenadas, null, 2);
+
+            positions.value.push({ latitude, longitude, timestamp });
         },
         (err) => {
             console.error('Erro ao obter localização:', err);
@@ -65,45 +71,17 @@ function stopTracking() {
     if (watchId.value) {
         navigator.geolocation.clearWatch(watchId.value);
         watchId.value = undefined;
-        console.log('Rastreamento encerrado.');
-        // Aqui você pode salvar os dados em localStorage ou exportar para JSON, etc.
-        // console.log('Coordenadas registradas:', coordenadas);
+
+        router.patch(
+            route('activity.update', activityId.value),
+            { positions: positions.value },
+            {
+                onSuccess: () => toast.success('Sessão encerrada!'),
+            },
+        );
     }
 }
 
 // Opcional: encerrar automaticamente ao fechar ou recarregar a aba
 window.addEventListener('beforeunload', stopTracking);
-
-onMounted(() => {
-    if (!navigator.geolocation) {
-        error.value = 'Geolocalização não suportada.';
-        loading.value = false;
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-        async (pos) => {
-            try {
-                const lat = pos.coords.latitude;
-                const lon = pos.coords.longitude;
-
-                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=pt-BR`);
-                const data = await res.json();
-
-                const addr = data.address;
-                address.value =
-                    `${addr.road || ''} ${addr.house_number || ''}, ${addr.suburb || ''} - ${addr.city || addr.town || ''}. ${addr.state || ''}`.trim();
-                loading.value = false;
-            } catch {
-                error.value = 'Erro ao obter endereço.';
-                loading.value = false;
-            }
-        },
-        (err) => {
-            error.value = `Erro: ${err.message}`;
-            loading.value = false;
-        },
-        { enableHighAccuracy: true },
-    );
-});
 </script>

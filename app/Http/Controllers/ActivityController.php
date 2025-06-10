@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ActivityController extends Controller
 {
@@ -30,7 +32,7 @@ class ActivityController extends Controller
     {
         $activity = Activity::create();
 
-        return redirect()->route('Home', ['activity_id' => $activity->id]);
+        return response()->json($activity);
     }
 
     /**
@@ -54,7 +56,16 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        //
+        $positions = $request->positions;
+
+        $start = $positions[0]['timestamp'];
+        $end = end($positions)['timestamp'];
+
+        $duration = (int) Carbon::parse($start)->diffInSeconds(Carbon::parse($end));
+
+        $activity->update(['start' => $start, 'end' => $end, 'duration' => $duration]);
+
+        return redirect()->back();
     }
 
     /**
