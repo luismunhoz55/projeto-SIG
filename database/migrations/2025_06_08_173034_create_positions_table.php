@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->ulid('id')->primary();
             $table->float('latitude');
             $table->float('longitude');
+            $table->timestamp('registered_at');
             $table->foreignUlid('activity_id')->constrained('activities')->cascadeOnDelete();
             $table->timestamps();
         });

@@ -1,5 +1,5 @@
 export interface Position {
     latitude: number;
     longitude: number;
-    timestamp: string;
+    registered_at: string;
 }

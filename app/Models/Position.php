@@ -13,6 +13,7 @@ class Position extends Model
     protected $fillable = [
         'latitude',
         'longitude',
+        'registered_at',
         'activity_id'
     ];
 

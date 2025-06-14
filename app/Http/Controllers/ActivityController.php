@@ -58,12 +58,16 @@ class ActivityController extends Controller
     {
         $positions = $request->positions;
 
-        $start = $positions[0]['timestamp'];
-        $end = end($positions)['timestamp'];
+        $start = $positions[0]['registered_at'];
+        $end = end($positions)['registered_at'];
 
         $duration = (int) Carbon::parse($start)->diffInSeconds(Carbon::parse($end));
 
         $activity->update(['start' => $start, 'end' => $end, 'duration' => $duration]);
+
+        foreach ($request->positions as $position) {
+            $activity->positions()->create($position);
+        }
 
         return redirect()->back();
     }

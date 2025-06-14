@@ -5,7 +5,7 @@
         <div class="flex items-center justify-center gap-4">
             <Button v-if="!watchId" @click="startTracking" size="icon"><Play /></Button>
             <Button v-else size="icon"><Pause /></Button>
-            <Button v-if="watchId" @click="stopTracking" size="icon"><Square /></Button>
+            <Button v-if="watchId" @click="stopTracking" size="icon" variant="destructive"><Square /></Button>
         </div>
         <Toaster rich-colors />
     </div>
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import Map from '@/components/map.vue';
 import { Button } from '@/components/ui/button';
-import { Position } from '@/types/Position';
+import { Position } from '@/types/position';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { Pause, Play, Square } from 'lucide-vue-next';
@@ -32,7 +32,7 @@ const startTracking = async () => {
         return;
     }
 
-    toast('Sessão iniciada');
+    toast.info('Sessão iniciada');
 
     const api = axios.create({
         baseURL: 'http://127.0.0.1:8000',
@@ -47,14 +47,14 @@ const startTracking = async () => {
     watchId.value = navigator.geolocation.watchPosition(
         (pos) => {
             const { latitude, longitude } = pos.coords;
-            const timestamp = new Date().toISOString();
+            const registered_at = new Date().toISOString();
             console.log({
                 latitude,
                 longitude,
-                timestamp,
+                registered_at,
             });
 
-            positions.value.push({ latitude, longitude, timestamp });
+            positions.value.push({ latitude, longitude, registered_at });
         },
         (err) => {
             console.error('Erro ao obter localização:', err);
