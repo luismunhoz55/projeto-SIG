@@ -7,6 +7,11 @@
             <Button v-else size="icon"><Pause /></Button>
             <Button v-if="watchId" @click="stopTracking" size="icon" variant="destructive"><Square /></Button>
         </div>
+
+        <Button>
+            <Link :href="route('activity.index')"> Ver todas as sessões</Link>
+        </Button>
+
         <Toaster rich-colors />
     </div>
 </template>
@@ -15,7 +20,7 @@
 import Map from '@/components/map.vue';
 import { Button } from '@/components/ui/button';
 import { Position } from '@/types/position';
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { Pause, Play, Square } from 'lucide-vue-next';
 import { ref } from 'vue';

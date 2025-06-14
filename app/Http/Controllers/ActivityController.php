@@ -14,7 +14,11 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return Activity::load('positions')->all();
+        $activities = Activity::with('positions')->get();
+
+        return Inertia::render("activity/index", [
+            'activities' => $activities
+        ]);
     }
 
     /**
@@ -40,7 +44,9 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return Inertia::render("activity/show", [
+            'activity' => $activity->load('positions')
+        ]);
     }
 
     /**
