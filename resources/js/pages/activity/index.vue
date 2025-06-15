@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { Button } from '@/components/ui/button';
-import { Activity } from '@/types/activity';
-import { Link } from '@inertiajs/vue3';
+    import { Button } from '@/components/ui/button';
+    import { Activity } from '@/types/activity';
+    import { Link } from '@inertiajs/vue3';
 
-defineProps<{
-    activities: Activity[];
-}>();
+    defineProps<{
+        activities: Activity[];
+    }>();
 </script>
 
 <template>
