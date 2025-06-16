@@ -1,13 +1,15 @@
-<script lang="ts" setup>
+<script setup lang="ts">
+import MapTrace from '@/components/mapTrace.vue';
 import { Activity } from '@/types/activity';
 
 defineProps<{
-    activity: Activity;
+  activity: Activity;
 }>();
 </script>
 
 <template>
-    <div>
-        {{ activity }}
-    </div>
+  <div class="p-4">
+    {{ activity }}
+    <MapTrace :activity="activity" />
+  </div>
 </template>

@@ -10,7 +10,6 @@ interface Position {
 }
 
 const props = defineProps<{ positions: Position[] }>();
-
 const mapElement = ref<HTMLElement | null>(null);
 
 let map: L.Map;
