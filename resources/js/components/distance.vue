@@ -30,7 +30,7 @@ import { Activity } from '@/types/Activity';
             distance += haversineDistance(prev.latitude, prev.longitude, curr.latitude, curr.longitude);
         }
 
-        return distance;
+        return Number(distance.toFixed(2));
     }
     
     const totalKm = totalDistance(activity.positions);
