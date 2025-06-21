@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Activity } from '@/types/Activity';
-
     const { activity } = defineProps<{ activity: Activity }>()
-
 
     function toRadians(degrees: number): number {
         return degrees * (Math.PI / 180);
