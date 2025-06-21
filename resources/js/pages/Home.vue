@@ -1,26 +1,27 @@
 <template>
-    <div class="flex min-h-screen flex-col gap-5 p-5">
-        <Map :positions="positions" />
-
-        <div class="flex items-center justify-center gap-4">
-            <Button v-if="!watchId" @click="startTracking" size="icon"><Play /></Button>
-            <Button v-else size="icon"><Pause /></Button>
-            <Button v-if="watchId" @click="stopTracking" size="icon" variant="destructive"><Square /></Button>
+    <div class="min-h-screen">
+        <div class="flex flex-col gap-5 p-5">
+            <Map :positions="positions" />
+    
+            <div class="flex items-center justify-center gap-4">
+                <Button v-if="!watchId" @click="startTracking" size="lg"><Play /></Button>
+                <Button v-else size="icon"><Pause /></Button>
+                <Button v-if="watchId" @click="stopTracking" size="icon" variant="destructive"><Square /></Button>
+            </div>
+    
+            <Toaster rich-colors />
         </div>
 
-        <Button>
-            <Link :href="route('activity.index')"> Ver todas as sessões</Link>
-        </Button>
-
-        <Toaster rich-colors />
+        <Footer class="sticky top-[100vh]" />
     </div>
 </template>
 
 <script setup lang="ts">
     import Map from '@/components/map.vue';
+    import Footer from '@/components/footer.vue'
     import { Button } from '@/components/ui/button';
     import { Position } from '@/types/position';
-    import { Link, router } from '@inertiajs/vue3';
+    import { router } from '@inertiajs/vue3';
     import axios from 'axios';
     import { Pause, Play, Square } from 'lucide-vue-next';
     import { ref } from 'vue';

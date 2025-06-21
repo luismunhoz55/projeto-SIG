@@ -74,5 +74,5 @@ watch(
 </script>
 
 <template>
-  <div ref="mapElement" class="h-[65vh] w-full rounded-sm"></div>
+  <div ref="mapElement" class="h-[75vh] w-full rounded-sm"></div>
 </template>
