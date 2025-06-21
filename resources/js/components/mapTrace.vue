@@ -4,21 +4,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
+import { Activity } from '@/types/Activity';
+import { Position } from '@/types/position';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Position } from '@/types/position';
 import axios from 'axios';
-
-interface Activity {
-  id: string;
-  positions: Position[];
-  start: string;
-  end: string;
-  duration: number;
-  distance: number | null;
-  created_at: string;
-  updated_at: string;
-}
 
 const props = defineProps<{
   activity: Activity;
