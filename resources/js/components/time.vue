@@ -22,5 +22,5 @@
 </script>
 
 <template>
-    Duracao: {{ formattedTime }}
+    Duração: {{ formattedTime }}
 </template>

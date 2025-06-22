@@ -7,6 +7,8 @@
 </script>
 
 <template>
-    <Time :activity="activity" />
-    <Distance :activity="activity" />
+    <div class="mx-5 bg-gray-100 rounded-lg p-8 flex flex-row gap-[12px] text-lg">
+        <Time :activity="activity" />
+        <Distance :activity="activity" />
+    </div>
 </template>
