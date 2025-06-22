@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[80vh] w-full" ref="mapElement"></div>
+  <div class="h-[60vh] w-full" ref="mapElement"></div>
 </template>
 
 <script setup lang="ts">

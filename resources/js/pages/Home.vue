@@ -4,7 +4,7 @@
             <Map :positions="positions" />
     
             <div class="flex items-center justify-center gap-4">
-                <Button v-if="!watchId" @click="startTracking" size="lg"><Play /></Button>
+                <Button v-if="!watchId" @click="startTracking" size="icon"><Play /></Button>
                 <Button v-else size="icon"><Pause /></Button>
                 <Button v-if="watchId" @click="stopTracking" size="icon" variant="destructive"><Square /></Button>
             </div>
