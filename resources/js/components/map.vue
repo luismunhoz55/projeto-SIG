@@ -19,7 +19,7 @@ let marker: L.Marker | undefined;
 onMounted(() => {
   if (!mapElement.value) return;
 
-  map = L.map(mapElement.value).setView([0, 0], 16);
+  map = L.map(mapElement.value).setView([-26.24714, -49.347279], 20);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
   }).addTo(map);
