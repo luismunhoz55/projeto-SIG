@@ -1,18 +1,16 @@
 <script setup lang="ts">
-  import MapTrace from '@/components/mapTrace.vue';
-  import Footer from '@/components/footer.vue';
-  import { Activity } from '@/types/Activity';
-  import RunDescription from '@/components/runDescription.vue';
+import Footer from '@/components/footer.vue';
+import MapTrace from '@/components/mapTrace.vue';
+import RunDescription from '@/components/runDescription.vue';
+import { Activity } from '@/types/Activity';
 
-  const { activity } = defineProps<{ activity: Activity }>()
+const { activity } = defineProps<{ activity: Activity }>();
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <div class="flex flex-col gap-5 p-5">
-      <MapTrace :activity="activity" />
+    <div class="min-h-screen space-y-4 p-5 pb-[10vh]">
+        <MapTrace :activity="activity" />
+        <RunDescription :activity="activity" />
+        <Footer class="fixed top-[89vh] left-[50%] -translate-x-1/2" />
     </div>
-    <RunDescription :activity="activity"/>
-    <Footer class="sticky top-[100vh]" />
-  </div>
 </template>

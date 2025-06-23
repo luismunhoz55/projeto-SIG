@@ -1,26 +1,20 @@
 <script setup lang="ts">
-    import { Activity } from '@/types/Activity';
-    import dayjs from 'dayjs'
-    import duration from 'dayjs/plugin/duration'
-    
-    const { activity } = defineProps<{ activity: Activity }>()
+import { Activity } from '@/types/Activity';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 
-    dayjs.extend(duration)
+const { activity } = defineProps<{ activity: Activity }>();
 
-    const start = dayjs(activity.start)
-    const end = dayjs(activity.end)
+dayjs.extend(duration);
 
-    const diffMs = end.diff(start)
+const start = dayjs(activity.start);
+const end = dayjs(activity.end);
 
-    const dur = dayjs.duration(diffMs)
-
-    const hours = dur.hours()
-    const minutes = dur.minutes()
-    const seconds = dur.seconds()
-
-    const formattedTime = `${hours}h ${minutes}m ${seconds}s`
+const formattedTime = dayjs.duration(end.diff(start)).format('HH:mm:ss');
 </script>
 
 <template>
-    Duração: {{ formattedTime }}
+    <div>
+        Duração: <span class="font-bold">{{ formattedTime }}</span>
+    </div>
 </template>

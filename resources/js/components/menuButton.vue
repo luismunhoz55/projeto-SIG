@@ -1,28 +1,29 @@
 <template>
-    <div @click="$emit('click')" class="w-1/4 cursor-pointer flex items-center justify-center flex-col h-full">
-      <Button
-        class="p-5 border-none bg-orange-600 w-20 rounded-xl hover:bg-orange-700"
-        :class="{ 'bg-orange-700': isActive }"
-      >
-        <Link :href="route">
-          <HomeIcon class="text-white w-10 h-full" />
-        </Link>
-      </Button>
-      <p class="text-white font-semibold">{{ label }}</p>
+    <div
+        @click="$emit('click')"
+        class="flex h-full cursor-pointer flex-col items-center justify-center rounded-full p-2"
+        :class="{ 'bg-orange-600': isActive }"
+    >
+        <Button variant="ghost" class="w-20 rounded-full border-none p-5">
+            <Link :href="route">
+                <component :is="icon" class="h-8 w-8" color="#FFF" />
+            </Link>
+        </Button>
+        <p class="font-semibold text-white">{{ label }}</p>
     </div>
-  </template>
-  
+</template>
+
 <script setup lang="ts">
-    import { defineProps, defineEmits } from 'vue'
-    import { Link } from '@inertiajs/vue3'
-    import { Button } from '@/components/ui/button';
-    import { HomeIcon } from '@heroicons/vue/24/solid'
+import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/vue3';
+import { defineEmits, defineProps, FunctionalComponent } from 'vue';
 
-    const props = defineProps<{
-        route: string
-        label: string
-        isActive?: boolean
-    }>()
+defineProps<{
+    route: string;
+    label: string;
+    isActive?: boolean;
+    icon: FunctionalComponent;
+}>();
 
-    defineEmits(['click'])
+defineEmits(['click']);
 </script>

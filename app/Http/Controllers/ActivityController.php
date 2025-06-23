@@ -14,7 +14,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with('positions')->get();
+        $activities = Activity::with('positions')->latest()->get();
 
         return Inertia::render("activity/index", [
             'activities' => $activities
